@@ -243,7 +243,7 @@ std::vector<double> ML::LogisticRegression::gradient_descent(const std::vector< 
     }
 
     // Log the error per 1000 epochs, can be commented out
-    if(epoch % 1000 == 0){
+    if(epoch % 500 == 0){
       double loss = error(y_i, y_hat_i);
       printf("Error # at epoch #%d: %f\n", epoch, loss);
     }
