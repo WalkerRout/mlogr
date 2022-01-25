@@ -1,8 +1,19 @@
+
+// Define header
 #ifndef WML_H
 #define WML_H
 
+
+/* Include Statements */
+/* ------------------ */
+
 #include <vector>
 
+/* ------------------ */
+
+
+
+// Namespace for machine learning models
 namespace ML {
   class LogisticRegression {
     private:

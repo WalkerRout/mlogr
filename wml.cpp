@@ -1,3 +1,11 @@
+// Author: Walker Rout
+// Date Created: January 24th, 2022
+
+
+
+/* Include Statements */
+/* ------------------ */
+
 #include "wml.h"
 #include <iostream>
 #include <math.h>
@@ -5,17 +13,15 @@
 #include <time.h>
 #include <algorithm>
 
-// ***************
-// Purpose       :
-// Parameters    :
-// Return values :
-// ***************
+/* ------------------ */
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+
+
+// Purpose       : Print out a matrix in order of rows and columns, separate by spaces and newlines respectively
+// Parameters    : mat {std::vector<std::vector<double>>} - Matrix to print
+// Return values : N/A
 void ML::printMat(std::vector< std::vector<double> > mat){
   for(int i = 0; i < mat.size(); i++){
     for(int j = 0; j < mat[i].size(); j++){
@@ -27,9 +33,9 @@ void ML::printMat(std::vector< std::vector<double> > mat){
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Print out a vector by rows separated by spaces
+// Parameters    : vec {std::vector<double>} - Vector to print
+// Return values : N/A
 void ML::printVec(std::vector<double> vec){
   for(int i = 0; i < vec.size(); i++){
     printf("%f ", vec[i]);
@@ -39,9 +45,9 @@ void ML::printVec(std::vector<double> vec){
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Transpose a matrix (columns -> rows, rows -> columns)
+// Parameters    : mat {std::vector<std::vector<double>>} - Matrix to transpose
+// Return values : {std::vector<std::vector<double>>} - The transposed matrix based on the mat parameter
 std::vector< std::vector<double> > ML::transpose(std::vector< std::vector<double> > mat){
   std::vector< std::vector<double> > mat_n(mat[0].size(), std::vector<double>(mat.size(), 0.0));
   
@@ -56,9 +62,9 @@ std::vector< std::vector<double> > ML::transpose(std::vector< std::vector<double
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Find the mean value of a vector (sum of elements / number of elements)
+// Parameters    : x_i {std::vector<double>} - Vector to find the mean of
+// Return values : {double} - The mean of the vector
 double ML::mean(std::vector<double> x_i){
   double sum = 0.0;
 
@@ -71,9 +77,9 @@ double ML::mean(std::vector<double> x_i){
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Find the standard deviation of a vector given by formula sqrt(sum[(ele - mean)**2] / num_ele - 1) where ele is an element in the vector
+// Parameters    : x_i {std::vector<double>} - Vector to calculate standard deviation of
+// Return values : {double} - Standard deviation of the x_i parameter
 double ML::std_dev(std::vector<double> x_i){
   size_t num_xs = x_i.size();
   double mn = mean(x_i);
@@ -88,9 +94,9 @@ double ML::std_dev(std::vector<double> x_i){
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Standardize a matrix based on the transpose of that matrix. This method is to be used with matrices that have had a 1 appended to their inner vectors
+// Parameters    : X {std::vector<std::vector<double>>} - Matrix to standardize
+// Return values : {std::vector<std::vector<double>>} - The standardized version of the X parameter
 std::vector< std::vector<double> > ML::zscore(std::vector< std::vector<double> > X){
   std::vector< std::vector<double> > XT = transpose(X);
   std::vector<double> mns;
@@ -114,9 +120,9 @@ std::vector< std::vector<double> > ML::zscore(std::vector< std::vector<double> >
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Fill a vector with random numbers between 0 and 1
+// Parameters    : vec {std::vector<double> &} - A vector with defined size to fill with random numbers
+// Return values : N/A
 void ML::fill_rand(std::vector<double> &vec){
   srand(time(0));
   std::generate(vec.begin(), vec.end(), rand);
@@ -127,9 +133,9 @@ void ML::fill_rand(std::vector<double> &vec){
 
 // Class method initializations
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Constructor method for LogisticRegression class instances
+// Parameters    : epochs {unsigned int} - Amount of epochs (iterations) of the gradient descent algorithm, learning_rate {double} - Learning rate for the model (typically 0.01)
+// Return values : N/A
 ML::LogisticRegression::LogisticRegression(unsigned int epochs, double learning_rate){
   this->epochs = epochs;
   this->learning_rate = learning_rate;
@@ -138,18 +144,18 @@ ML::LogisticRegression::LogisticRegression(unsigned int epochs, double learning_
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Calculate the value of a double passed through a logistic curve (sigmoid function)
+// Parameters    : z {double} - The value to be passed through the function
+// Return values : {double} - The corresponding value of the z paramater passed through the sigmoid function
 double ML::LogisticRegression::sigmoid(double z){
   return 1.0 / (1.0 + exp(-z));
 }
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Calculate the dot product between a row of the input matrix (a vector) and the beta vector (intercept and weights)
+// Parameters    : x_i {std::vector<double} - Vector of independent variables with a 1 appended to the front, b_i {std::vector<double>} - Vector of weights with the intercept appended to the front
+// Return values : {double} - The dot product of the x_i parameter and b_i parameter
 double ML::LogisticRegression::dot(std::vector<double> x_i, std::vector<double> b_i){
   double prod = 0.0;
 
@@ -164,27 +170,27 @@ double ML::LogisticRegression::dot(std::vector<double> x_i, std::vector<double> 
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : A prediction of the model based on the independent variables and weights found by passing the dot product of the independent variable vectors and weights into the sigmoid method
+// Parameters    : x_i {std::vector<double>} - Vector of independent variables with a 1 appended to the front, b_i {std::vector<double>} - Vector of weights with the intercept appended to the front
+// Return values : {double} - The prediction of the model based off of the beta values (between 0 and 1)
 double ML::LogisticRegression::predict(std::vector<double> x_i, std::vector<double> b_i){
   return sigmoid(dot(x_i, b_i));
 }
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Loss function for the actual vs predicted y-value
+// Parameters    : y_i {double} - Actual y-value, y_hat {double} - Predicted y-value
+// Return values : {double} - Logarithmic loss of the model based on the actual vs predicted value
 double ML::LogisticRegression::logloss(double y_i, double y_hat){
   return -((y_i * log(y_hat)) + ((1.0 - y_i) * log(1.0 - y_hat)));
 }
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Calculates the total mean error of the function for every actual y-value and predicted y-value
+// Parameters    : y_i {std::vector<double>} - Vector of actual y-values, y_hat_i {std::vector<double>} - Vector of predicted y-values
+// Return values : {double} - Mean loss of the function given the y_i and y_hat_i parameters
 double ML::LogisticRegression::error(std::vector<double> y_i, std::vector<double> y_hat_i){
   size_t len = y_i.size();
   double loss = 0.0;
@@ -198,9 +204,9 @@ double ML::LogisticRegression::error(std::vector<double> y_i, std::vector<double
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Find the gradients of the intercept and weights by calculating the partial derivative with respect to x_ij for each element in the beta vector
+// Parameters    : X {std::vector<std::vector<double>>} - Input matrix, b_i {std::vector<double>} - Current vector of intercept and weights, y_i {std::vector<double>} - Vector of actual y-values
+// Return values : {std::vector<double>} - Vector of gradients corresponding to the order of elements of the beta parameter
 std::vector<double> ML::LogisticRegression::gradient_cost(std::vector< std::vector<double> > X, std::vector<double> b_i, std::vector<double> y_i){
   int size = b_i.size();
   std::vector<double> cost(size, 0.0);
@@ -223,9 +229,9 @@ std::vector<double> ML::LogisticRegression::gradient_cost(std::vector< std::vect
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Piece together previously defined methods to perform gradient descent in order to find optimal intercept and weights
+// Parameters    : X {std::vector<std::vector<double>>} - Input matrix, b_i {std::vector<double>} - Initial random intercept and weights, y_i {std::vector<double>} - Vector of actual y-values
+// Return values : {std::vector<double>} - Updated beta parameter (best fit intercept and weights)
 std::vector<double> ML::LogisticRegression::gradient_descent(const std::vector< std::vector<double> > X, std::vector<double> b_i, const std::vector<double> y_i){
   std::vector<double> b_i_s = b_i;
 
@@ -236,11 +242,13 @@ std::vector<double> ML::LogisticRegression::gradient_descent(const std::vector< 
       y_hat_i[i] = predict(X[i], b_i_s);
     }
 
+    // Log the error per 1000 epochs, can be commented out
     if(epoch % 1000 == 0){
       double loss = error(y_i, y_hat_i);
       printf("Error # at epoch #%d: %f\n", epoch, loss);
     }
 
+    // Calculate the gradients of the beta vector
     std::vector<double> cost = gradient_cost(X, b_i_s, y_i);
 
     // Step down - actual gradient descent for each element in the updated beta list
