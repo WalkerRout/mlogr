@@ -1,4 +1,4 @@
-# MultipleLogisticRegression
+# Multiple Logistic Regression
 Multiple Logistic Regression implemented in C++ **from scratch**
 
 I used only default C++ libraries in order to perform mathematical operations and to create the vectors/matrix.
