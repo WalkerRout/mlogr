@@ -95,7 +95,7 @@ int main() {
   ML::fill_rand(b_i);
   X = ML::zscore(X);
 
-  ML::LogisticRegression logr = ML::LogisticRegression(3001, 0.007);
+  ML::LogisticRegression logr = ML::LogisticRegression(501, 0.01);
   std::vector<double> updated_beta = logr.gradient_descent(X, b_i, y_i);
   ML::printVec(updated_beta);
 
