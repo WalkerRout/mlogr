@@ -4,7 +4,7 @@
 #include <string>
 #include <time.h>
 #include <typeinfo>
-#include "wml.h"
+#include "wml/wml.h"
 
 
 std::vector< std::vector<double> > readCSV(std::string filename){
@@ -85,7 +85,7 @@ void accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X,
 
 
 int main() {
-  // Compile: g++ -std=c++11 -w *.cpp -o log
+  // Compile: g++ -std=c++11 -w *.cpp wml/*.cpp -o bin/log
 
   std::vector< std::vector<double> > X = readCSV("data/framingham_clean.csv");
   std::vector<double> y_i;
