@@ -16,7 +16,7 @@
 // Purpose       :
 // Parameters    :
 // Return values :
-void ML::printMat(std::vector<std::vector<double>> mat){
+void ML::printMat(std::vector< std::vector<double> > mat){
   for(int i = 0; i < mat.size(); i++){
     for(int j = 0; j < mat[i].size(); j++){
       printf("%f ", mat[i][j]);
@@ -42,8 +42,8 @@ void ML::printVec(std::vector<double> vec){
 // Purpose       :
 // Parameters    :
 // Return values :
-std::vector<std::vector<double>> ML::transpose(std::vector<std::vector<double>> mat){
-  std::vector<std::vector<double>> mat_n(mat[0].size(), std::vector<double>(mat.size(), 0.0));
+std::vector< std::vector<double> > ML::transpose(std::vector< std::vector<double> > mat){
+  std::vector< std::vector<double> > mat_n(mat[0].size(), std::vector<double>(mat.size(), 0.0));
   
   for(int i = 0; i < mat.size(); i++){
     for (int j = 0; j < mat[i].size(); j++){
@@ -91,8 +91,8 @@ double ML::std_dev(std::vector<double> x_i){
 // Purpose       :
 // Parameters    :
 // Return values :
-std::vector<std::vector<double>> ML::zscore(std::vector<std::vector<double>> X){
-  std::vector<std::vector<double>> XT = transpose(X);
+std::vector< std::vector<double> > ML::zscore(std::vector< std::vector<double> > X){
+  std::vector< std::vector<double> > XT = transpose(X);
   std::vector<double> mns;
   std::vector<double> stds;
 
@@ -120,7 +120,7 @@ std::vector<std::vector<double>> ML::zscore(std::vector<std::vector<double>> X){
 void ML::fill_rand(std::vector<double> &vec){
   srand(time(0));
   std::generate(vec.begin(), vec.end(), rand);
-  std::for_each(vec.begin(), vec.end(), [](double &ele){ele /= RAND_MAX;});
+  std::for_each(vec.begin(), vec.end(), [] (double &ele){ele /= RAND_MAX;} );
 }
 
 
@@ -201,7 +201,7 @@ double ML::LogisticRegression::error(std::vector<double> y_i, std::vector<double
 // Purpose       :
 // Parameters    :
 // Return values :
-std::vector<double> ML::LogisticRegression::gradient_cost(std::vector<std::vector<double>> X, std::vector<double> b_i, std::vector<double> y_i){
+std::vector<double> ML::LogisticRegression::gradient_cost(std::vector< std::vector<double> > X, std::vector<double> b_i, std::vector<double> y_i){
   int size = b_i.size();
   std::vector<double> cost(size, 0.0);
 
@@ -226,7 +226,7 @@ std::vector<double> ML::LogisticRegression::gradient_cost(std::vector<std::vecto
 // Purpose       :
 // Parameters    :
 // Return values :
-std::vector<double> ML::LogisticRegression::gradient_descent(const std::vector<std::vector<double>> X, std::vector<double> b_i, const std::vector<double> y_i){
+std::vector<double> ML::LogisticRegression::gradient_descent(const std::vector< std::vector<double> > X, std::vector<double> b_i, const std::vector<double> y_i){
   std::vector<double> b_i_s = b_i;
 
   for(int epoch = 0; epoch < epochs; epoch++){

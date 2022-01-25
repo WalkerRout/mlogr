@@ -6,8 +6,8 @@
 #include "wml.h"
 
 
-std::vector<std::vector<double>> readCSV(std::string filename){
-  std::vector<std::vector<double>> mat;
+std::vector< std::vector<double> > readCSV(std::string filename){
+  std::vector< std::vector<double> > mat;
 
   std::ifstream fin(filename);
   std::string linestr;
@@ -28,7 +28,7 @@ std::vector<std::vector<double>> readCSV(std::string filename){
 
 
 
-void splitVariables(std::vector<std::vector<double>> &X, std::vector<double> &y_i){
+void splitVariables(std::vector< std::vector<double> > &X, std::vector<double> &y_i){
   for(auto &x_i : X){
     y_i.push_back(x_i[x_i.size() - 1]);
     x_i.pop_back();
@@ -39,7 +39,7 @@ void splitVariables(std::vector<std::vector<double>> &X, std::vector<double> &y_
 
 
 int main() {
-  std::vector<std::vector<double>> X = readCSV("marks.csv");
+  std::vector< std::vector<double> > X = readCSV("marks.csv");
   std::vector<double> y_i;
   splitVariables(X, y_i);
 
@@ -47,7 +47,7 @@ int main() {
   ML::fill_rand(b_i);
   X = ML::zscore(X);
 
-  ML::LogisticRegression logr = ML::LogisticRegression(15001, 0.008);
+  ML::LogisticRegression logr = ML::LogisticRegression(5001, 0.008);
   std::vector<double> updated_beta = logr.gradient_descent(X, b_i, y_i);
   ML::printVec(updated_beta);
 
