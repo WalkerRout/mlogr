@@ -38,7 +38,43 @@ void splitVariables(std::vector< std::vector<double> > &X, std::vector<double> &
 
 
 
+void accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X, std::vector<double> y_i, std::vector<double> b_i, double total, double thresh){
+  double tpos = 0;
+  double tneg = 0;
+  double fpos = 0;
+  double fneg = 0;
+  
+  for(int i = 0; i < X.size(); i++){
+    std::vector<double> x_i = X[i]; 
+    double y = y_i[i];
+    double y_hat = logr.predict(x_i, b_i);
+    double y_pred = 1.0;
+
+    if(y_hat < thresh){
+      y_pred = 0.0;
+    }
+
+    if(y_pred == 1.0 && y == 1.0){
+      tpos += 1.0;
+    } else if (y_pred == 0.0 && y == 0.0){
+      tneg += 1.0;
+    } else if (y_pred == 1.0 && y == 0.0){
+      fpos += 1;
+    } else if (y_pred == 0.0 && y == 1.0){
+      fneg += 1;
+    } else {
+      printf("Invalid y_pred and y value match!\n");
+    }
+  }
+
+  printf("Accuracy: %.2f percent!\n", (((tpos + tneg) / total) * 100));
+}
+
+
+
 int main() {
+  // Compile: g++ -std=c++11 -w *.cpp -o log
+
   std::vector< std::vector<double> > X = readCSV("marks.csv");
   std::vector<double> y_i;
   splitVariables(X, y_i);
@@ -50,5 +86,8 @@ int main() {
   ML::LogisticRegression logr = ML::LogisticRegression(5001, 0.008);
   std::vector<double> updated_beta = logr.gradient_descent(X, b_i, y_i);
   ML::printVec(updated_beta);
+
+  double total = y_i.size();
+  accuracy(logr, X, y_i, updated_beta, total, 0.5);
 
 }

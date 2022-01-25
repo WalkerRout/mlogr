@@ -167,7 +167,7 @@ double ML::LogisticRegression::dot(std::vector<double> x_i, std::vector<double> 
 // Purpose       :
 // Parameters    :
 // Return values :
-double ML::LogisticRegression::squish(std::vector<double> x_i, std::vector<double> b_i){
+double ML::LogisticRegression::predict(std::vector<double> x_i, std::vector<double> b_i){
   return sigmoid(dot(x_i, b_i));
 }
 
@@ -206,7 +206,7 @@ std::vector<double> ML::LogisticRegression::gradient_cost(std::vector< std::vect
   std::vector<double> cost(size, 0.0);
 
   for(int i = 0; i < X.size(); i++){
-    double err = squish(X[i], b_i) - y_i[i];
+    double err = predict(X[i], b_i) - y_i[i];
 
     for(int j = 0; j < X[0].size(); j++){
       cost.at(j) += (err * X[i][j]);
@@ -233,7 +233,7 @@ std::vector<double> ML::LogisticRegression::gradient_descent(const std::vector< 
     std::vector<double> y_hat_i(y_i.size(), 0.0);
 
     for(int i = 0; i < X.size(); i++){
-      y_hat_i[i] = squish(X[i], b_i_s);
+      y_hat_i[i] = predict(X[i], b_i_s);
     }
 
     if(epoch % 1000 == 0){

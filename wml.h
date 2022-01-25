@@ -11,7 +11,6 @@ namespace ML {
 
       double sigmoid(const double z);
       double dot(const std::vector<double> x_i, const std::vector<double> b_i);
-      double squish(const std::vector<double> x_i, const std::vector<double> b_i);
       double logloss(const double y, const double y_hat);
       double error(const std::vector<double> y_i, const std::vector<double> y_hat_i);
       std::vector<double> gradient_cost(const std::vector< std::vector<double> > X, const std::vector<double> b_i, const std::vector<double> y_i);
@@ -19,6 +18,7 @@ namespace ML {
     public:
       LogisticRegression(const unsigned int epochs, const double learning_rate);
       std::vector<double> gradient_descent(const std::vector< std::vector<double> > X, std::vector<double> b_i, const std::vector<double> y_i);
+      double predict(const std::vector<double> x_i, const std::vector<double> b_i);
   };
 
   double mean(std::vector<double> x_i);
