@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <time.h>
+#include <typeinfo>
 #include "wml.h"
 
 
@@ -16,10 +17,21 @@ std::vector< std::vector<double> > readCSV(std::string filename){
     std::stringstream ss(linestr);
     std::vector<double> temp;
     std::string data;
+    double t;
 
+    
     while(std::getline(ss, data, ',')){
+      ss >> t;
+      temp.push_back(t);
+    }
+    
+    /*
+    while(std::getline(ss, data, ',')){
+      //std::cout << data << "\n";
       temp.push_back(std::stod(data));
     }
+    */
+
     if (temp.size() > 0) mat.push_back(temp);
   }
 
@@ -75,7 +87,7 @@ void accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X,
 int main() {
   // Compile: g++ -std=c++11 -w *.cpp -o log
 
-  std::vector< std::vector<double> > X = readCSV("data/marks.csv");
+  std::vector< std::vector<double> > X = readCSV("data/framingham_clean.csv");
   std::vector<double> y_i;
   splitVariables(X, y_i);
 
