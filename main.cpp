@@ -75,7 +75,7 @@ void accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X,
 int main() {
   // Compile: g++ -std=c++11 -w *.cpp -o log
 
-  std::vector< std::vector<double> > X = readCSV("marks.csv");
+  std::vector< std::vector<double> > X = readCSV("data/marks.csv");
   std::vector<double> y_i;
   splitVariables(X, y_i);
 
