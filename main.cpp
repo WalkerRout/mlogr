@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include "wml/wml.h"
 
 
@@ -9,8 +10,6 @@ int main() {
 
   std::vector< std::vector<double> > X = ML::readCSV("data/framingham_clean.csv");
 
-  //ML::printMat(X);
-  
   std::vector<double> y_i;
   ML::splitVariables(X, y_i);
 
@@ -18,11 +17,17 @@ int main() {
   ML::fill_rand(b_i);
   X = ML::zscore(X);
 
-  ML::LogisticRegression logr = ML::LogisticRegression(1001, 0.01);
+  ML::LogisticRegression logr = ML::LogisticRegression(501, 0.01);
   std::vector<double> updated_beta = logr.gradient_descent(X, b_i, y_i);
   ML::printVec(updated_beta);
 
   double total = y_i.size();
   ML::accuracy(logr, X, y_i, updated_beta, total, 0.5);
   
+  // First line in the cleaned dataset is the person to predict
+  /*
+  std::cout << std::endl;
+  double y_hat = logr.predict(X[0], updated_beta);
+  printf("%f percent\n", y_hat);
+  */
 }
