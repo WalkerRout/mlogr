@@ -96,7 +96,9 @@ void ML::splitVariables(std::vector< std::vector<double> > &X, std::vector<doubl
 // Purpose       : Calculate the accuracy of a Logistic Regression model based on true positives, true negatives, false positives, and false negatives
 // Parameters    : log {ML::LogisticRegression} - Model object (can be any model), X {std::vector<std::vector<double>>} - Input matrix of values, y_i {std::vector<double>} - Vector of true binary outcomes, b_i {std::vector<double>} - Updated intercept and weights of the model, total {double} - Size of the y_i vector, thresh {double} - Threshold for a 0 or 1 prediction
 // Return values : N/A
-void ML::accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X, std::vector<double> y_i, std::vector<double> b_i, double total, double thresh){
+void ML::accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X, std::vector<double> y_i, std::vector<double> b_i, double thresh){
+  double total = y_i.size();
+  
   double tpos = 0;
   double tneg = 0;
   double fpos = 0;

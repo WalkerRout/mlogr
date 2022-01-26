@@ -40,7 +40,7 @@ namespace ML {
   std::vector< std::vector<double> > readCSV(std::string filename);
 
   void splitVariables(std::vector< std::vector<double> > &X, std::vector<double> &y_i);
-  void accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X, std::vector<double> y_i, std::vector<double> b_i, double total, double thresh);
+  void accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X, std::vector<double> y_i, std::vector<double> b_i, double thresh);
   void printMat(std::vector< std::vector<double> > mat);
   void printVec(std::vector<double> vec);
   void fill_rand(std::vector<double> &vec);
