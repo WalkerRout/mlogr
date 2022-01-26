@@ -58,23 +58,19 @@ std::vector< std::vector<double> > ML::readCSV(std::string filename){
   std::string linestr;
 
   while(std::getline(fin, linestr)){
-    std::stringstream ss(linestr);
+    std::stringstream ssr(linestr);
+    std::stringstream ssc;
     std::vector<double> temp;
     std::string data;
     double t;
 
     
-    while(std::getline(ss, data, ',')){
-      ss >> t;
+    while(std::getline(ssr, data, ',')){
+      ssc << data;
+      ssc >> t;
       temp.push_back(t);
+      std::stringstream().swap(ssc);
     }
-    
-    /*
-    while(std::getline(ss, data, ',')){
-      //std::cout << data << "\n";
-      temp.push_back(std::stod(data));
-    }
-    */
 
     if (temp.size() > 0) mat.push_back(temp);
   }
