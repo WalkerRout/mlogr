@@ -24,7 +24,7 @@ int main() {
   ML::printVec(updated_beta);
 
   double total = y_i.size();
-  ML::accuracy(logr, X, y_i, updated_beta, total, 0.40);
+  ML::accuracy(logr, X, y_i, updated_beta, total, 0.50);
   
   // First line in the cleaned dataset is the person to predict
   /*
