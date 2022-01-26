@@ -48,9 +48,9 @@ void ML::printVec(std::vector<double> vec){
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Read a CSV file into a matrix (no words or NaN values can be contained in the CSV, all rows must be filled)
+// Parameters    : filename {std::string} - The path of the file to read in (ie.. data/example.csv)
+// Return values : {std::vector<std::vector<double>>} - A matrix containing all of the data in the CSV file
 std::vector< std::vector<double> > ML::readCSV(std::string filename){
   std::vector< std::vector<double> > mat;
 
@@ -80,9 +80,9 @@ std::vector< std::vector<double> > ML::readCSV(std::string filename){
 
 
 
-// Purpose       :
-// Parameters    :
-// Return values :
+// Purpose       : Split the binary outcome from an input matrix into a separate vector and append a 1 to the front of all rows in the input matrix (binary outcome must be the last column of the input matrix)
+// Parameters    : X {std::vector<std::vector<double>> &} - Input matrix to split and append, y_i {std::vector<double> &} - Vector to move the binary outcome column into 
+// Return values : N/A
 void ML::splitVariables(std::vector< std::vector<double> > &X, std::vector<double> &y_i){
   for(auto &x_i : X){
     y_i.push_back(x_i[x_i.size() - 1]);
@@ -93,8 +93,8 @@ void ML::splitVariables(std::vector< std::vector<double> > &X, std::vector<doubl
 
 
 
-// Purpose       :
-// Parameters    :
+// Purpose       : Calculate the accuracy of a Logistic Regression model based on true positives, true negatives, false positives, and false negatives
+// Parameters    : log {ML::LogisticRegression} - Model object (can be any model), X {std::vector<std::vector<double>>} - Input matrix of values, y_i {std::vector<double>} - Vector of true binary outcomes, b_i {std::vector<double>} - Updated intercept and weights of the model, total {double} - Size of the y_i vector, thresh {double} - Threshold for a 0 or 1 prediction
 // Return values :
 void ML::accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X, std::vector<double> y_i, std::vector<double> b_i, double total, double thresh){
   double tpos = 0;
