@@ -8,6 +8,7 @@
 int main() {
   // Compile: g++ -std=c++11 -w *.cpp wml/*.cpp -o bin/log
   // https://stackoverflow.com/questions/35953886/include-path-directory
+  // https://gcc.gnu.org/onlinedocs/cpp/Search-Path.html
 
   std::vector< std::vector<double> > X = ML::readCSV("data/framingham_clean.csv");
 
