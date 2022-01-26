@@ -6,12 +6,15 @@
 /* Include Statements */
 /* ------------------ */
 
-#include "wml.h"
 #include <iostream>
 #include <math.h>
 #include <stdio.h>
 #include <time.h>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include "wml.h"
 
 /* ------------------ */
 
@@ -41,6 +44,92 @@ void ML::printVec(std::vector<double> vec){
     printf("%f ", vec[i]);
   }
   printf("\n");
+}
+
+
+
+// Purpose       :
+// Parameters    :
+// Return values :
+std::vector< std::vector<double> > ML::readCSV(std::string filename){
+  std::vector< std::vector<double> > mat;
+
+  std::ifstream fin(filename);
+  std::string linestr;
+
+  while(std::getline(fin, linestr)){
+    std::stringstream ss(linestr);
+    std::vector<double> temp;
+    std::string data;
+    double t;
+
+    
+    while(std::getline(ss, data, ',')){
+      ss >> t;
+      temp.push_back(t);
+    }
+    
+    /*
+    while(std::getline(ss, data, ',')){
+      //std::cout << data << "\n";
+      temp.push_back(std::stod(data));
+    }
+    */
+
+    if (temp.size() > 0) mat.push_back(temp);
+  }
+
+  return mat;
+}
+
+
+
+// Purpose       :
+// Parameters    :
+// Return values :
+void ML::splitVariables(std::vector< std::vector<double> > &X, std::vector<double> &y_i){
+  for(auto &x_i : X){
+    y_i.push_back(x_i[x_i.size() - 1]);
+    x_i.pop_back();
+    x_i.insert(x_i.begin(), 1); // Easier dot product calculations after appending a 1 to the beginning
+  }
+}
+
+
+
+// Purpose       :
+// Parameters    :
+// Return values :
+void ML::accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X, std::vector<double> y_i, std::vector<double> b_i, double total, double thresh){
+  double tpos = 0;
+  double tneg = 0;
+  double fpos = 0;
+  double fneg = 0;
+  
+  for(int i = 0; i < X.size(); i++){
+    std::vector<double> x_i = X[i]; 
+    double y = y_i[i];
+    double y_hat = logr.predict(x_i, b_i);
+    double y_pred = 1.0;
+
+    if(y_hat < thresh){
+      y_pred = 0.0;
+    }
+
+    if(y_pred == 1.0 && y == 1.0){
+      tpos += 1.0;
+    } else if (y_pred == 0.0 && y == 0.0){
+      tneg += 1.0;
+    } else if (y_pred == 1.0 && y == 0.0){
+      fpos += 1;
+    } else if (y_pred == 0.0 && y == 1.0){
+      fneg += 1;
+    } else {
+      printf("Invalid y_pred and y value match!\n");
+    }
+  }
+
+  printf("Accuracy: %.2f percent!\n", (((tpos + tneg) / total) * 100));
 }
 
 
