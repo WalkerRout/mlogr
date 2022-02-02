@@ -127,7 +127,7 @@ void ML::accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> 
     }
   }
 
-  printf("Accuracy: %.2f percent!\n", (((tpos + tneg) / total) * 100));
+  printf("\nAccuracy: %.2f percent!\n", (((tpos + tneg) / total) * 100));
 }
 
 
@@ -330,10 +330,12 @@ std::vector<double> ML::LogisticRegression::gradient_descent(const std::vector< 
     }
 
     // Log the error per 1000 epochs, can be commented out
+    /*
     if(epoch % 500 == 0){
       double loss = error(y_i, y_hat_i);
       printf("Error # at epoch #%d: %f\n", epoch, loss);
     }
+    */
 
     // Calculate the gradients of the beta vector
     std::vector<double> cost = gradient_cost(X, b_i_s, y_i);
