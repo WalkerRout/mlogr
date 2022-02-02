@@ -59,12 +59,9 @@ int main() {
   init(X, y_i, b_i, path);
   
   ML::LogisticRegression logr = ML::LogisticRegression(1001, 0.001);
-  std::vector<double> updated_beta;
-  //std::vector<double> updated_beta = logr.gradient_descent(X, b_i, y_i);
+  std::vector<double> updated_beta; // Alright so I need to refactor this whole part of the program to make this immutable with a lock state or mutex or something
 
   std::atomic<bool> logThreadDone(false);
-
-
 
   std::thread logThread([&](){
     updated_beta = logr.gradient_descent(X, b_i, y_i);
