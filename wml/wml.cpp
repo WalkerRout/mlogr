@@ -6,14 +6,6 @@
 /* Include Statements */
 /* ------------------ */
 
-#include <iostream>
-#include <math.h>
-#include <stdio.h>
-#include <time.h>
-#include <algorithm>
-#include <fstream>
-#include <sstream>
-#include <string>
 #include "wml.h"
 
 /* ------------------ */
