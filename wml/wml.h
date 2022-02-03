@@ -23,6 +23,22 @@
 
 // Namespace for machine learning models
 namespace ML {
+
+  double mean(std::vector<double> x_i);
+  double std_dev(std::vector<double> x_i);
+
+  std::vector< std::vector<double> > zscore(std::vector< std::vector<double> > X);
+  std::vector< std::vector<double> > transpose(std::vector< std::vector<double> > mat);
+  std::vector< std::vector<double> > readCSV(std::string filename);
+
+  void splitVariables(std::vector< std::vector<double> > &X, std::vector<double> &y_i);
+  void accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X, std::vector<double> y_i, std::vector<double> b_i, double thresh);
+  void printMat(std::vector< std::vector<double> > mat);
+  void printVec(std::vector<double> vec);
+  void fill_rand(std::vector<double> &vec);
+
+
+
   class LogisticRegression {
     private:
       unsigned int epochs;
@@ -40,18 +56,6 @@ namespace ML {
       double predict(const std::vector<double> x_i, const std::vector<double> b_i);
   };
 
-  double mean(std::vector<double> x_i);
-  double std_dev(std::vector<double> x_i);
-
-  std::vector< std::vector<double> > zscore(std::vector< std::vector<double> > X);
-  std::vector< std::vector<double> > transpose(std::vector< std::vector<double> > mat);
-  std::vector< std::vector<double> > readCSV(std::string filename);
-
-  void splitVariables(std::vector< std::vector<double> > &X, std::vector<double> &y_i);
-  void accuracy(ML::LogisticRegression logr, std::vector< std::vector<double> > X, std::vector<double> y_i, std::vector<double> b_i, double thresh);
-  void printMat(std::vector< std::vector<double> > mat);
-  void printVec(std::vector<double> vec);
-  void fill_rand(std::vector<double> &vec);
   
 }
 
